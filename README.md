@@ -77,8 +77,8 @@ Identifier incompatible strings are allowed, but then you must use bracket notat
 ```javascript
 const otherColors = StringEnum('light-blue', 'lime-green');
 
-otherColors['light-blue']       // OK
-otherColors.light-blue          // Not working
+otherColors['light-blue']                   // OK
+otherColors.light-blue                      // Not working
 ```
 
 ### Equality
@@ -86,7 +86,7 @@ otherColors.light-blue          // Not working
 Enum elements are just normal strings, hence:
 
 ```javascript
-eyeColors.blue === 'blue';  // true
+eyeColors.blue === 'blue';                  // true
 ```
 
 ### Iteration
