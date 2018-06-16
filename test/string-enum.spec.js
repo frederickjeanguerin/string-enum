@@ -69,11 +69,8 @@ describe('String Enum', function() {
 
     });
 
-    it('Enum of non string elements are converted to string', function() {
-        const e = StringEnum(1, -2);
-        expect(e[1]).eq(1);
-        expect(e[-2]).eq(-2);
-        expect(()=>e[3]).throw(ReferenceError);
+    it('Enum of non string elements raise errors', function() {
+        expect(()=>StringEnum(1, -2)).throw(TypeError);
     });
 
     it('Enum inheritance', function() {

@@ -4,7 +4,7 @@
 
 Creates simple and immutables sets of names (*strings*).
 
-*These sets are guaranteed to be immutable. Moreover, if you ever mispell a name, an error will be raised immediately, instead of letting `undefined` cripple and damage your running program in unexpected ways.*
+*These sets are guaranteed to be immutable. Moreover, if you ever mispell a name, an error will be raised immediately, instead of letting `undefined` cripple and damage your running program in unexpected ways, thus following a [fail-fast](https://en.wikipedia.org/wiki/Fail-fast) approach.*
 
 ## Installation
 
@@ -15,11 +15,11 @@ npm install string-enum
 ## Usage (node)
 
 ```javascript
-import Enum from "string-enum";         // ES6 modules
+import StringEnum from "string-enum";         // ES6 modules
 // or
-const Enum = require("string-enum");    // Node way
+const StringEnum = require("string-enum");    // Classic way
 
-const eyeColors = Enum(
+const eyeColors = StringEnum(
     "brown",
     "blue",
     "green",
@@ -52,7 +52,7 @@ delete eyeColors.brown;         // Error, cant delete color
 </script>
 ```
 
-## More usages
+## More usage
 
 ### Construction
 
@@ -66,6 +66,21 @@ const eyeColors = StringEnum( ["brown", "blue", "green", "hazel"] );
 const eyeColors = new StringEnum("brown", "blue", "green", "hazel");
 ```
 
+Note that enum elements should be strings:
+
+```javascript
+const numbers = StringEnum(1, 2, 3);        // TypeError
+```
+
+Identifier incompatible strings are allowed, but then you must use bracket notation to access them in your code later on:
+
+```javascript
+const otherColors = StringEnum('light-blue', 'lime-green');
+
+otherColors['light-blue']       // OK
+otherColors.light-blue          // Not working
+```
+
 ### Equality
 
 Enum elements are just normal strings, hence:
@@ -76,7 +91,7 @@ eyeColors.blue === 'blue';  // true
 
 ### Iteration
 
-Values are iterable with either `for... of...` or `for... in...`:
+Enum elements are iterable with either `for... of...` or `for... in...`:
 
 ```javascript
 for(const color in eyeColors) { ... }
@@ -84,17 +99,7 @@ for(const color in eyeColors) { ... }
 for(const color of eyeColors) { ... }
 ```
 
-### Lookup
-
-StringEnums are basically simple objects, so values are accessed with either dot notation or by bracket lookup:
-
-```javascript
-console.log(eyeColors.blue);        // blue
-
-console.log(eyeColors['blue']);     // blue
-```
-
-### Check membership
+### Membership lookup
 
 To check beforehand if an element is part of the Enum set, you may use the `in` operator:
 

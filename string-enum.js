@@ -1,6 +1,6 @@
 /**
  * Creates an immutable set of string values.
- * @param  {string[]} values 
+ * @param  {string[]} values
  * @return {StringEnum}
  */
 function StringEnum(...values) {
@@ -17,6 +17,12 @@ function StringEnum(...values) {
     // Populate the object
     for(let value of values)
     {
+        // Only strings are allowed as values because.
+        // 1- object member access convert all values to string, anyways.
+        // 2- The StringEnum interface remains extensible to other types in the future.
+        if( typeof value !== "string" )
+            throw new TypeError("Enum elements should be strings: " + value);
+        // NB: Values with spaces or non identifier compatible characters are still possible though less usable.
         _enum[value] = value;
     }
 
