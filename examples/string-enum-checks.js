@@ -1,5 +1,5 @@
 const assert = require('assert');
-const StringEnum = require('../src/string-enum');
+const StringEnum = require('../dist/string-enum');
 
 const values = ['brown', 'blue', 'green', 'hazel'];
 const eyeColors = StringEnum(values);

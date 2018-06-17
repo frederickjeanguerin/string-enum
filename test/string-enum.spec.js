@@ -2,7 +2,7 @@ const chai = require('chai');
 const expect = chai.expect;
 
 const values = ['aa', 'bb'];
-const StringEnum = require('../src/string-enum');
+const StringEnum = require('../dist/string-enum');
 
 const enums = [
     // Create enum directly

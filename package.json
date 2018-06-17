@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Creates simple and immutable sets of names.",
   "main": "dist/string-enum.js",
+  "files": ["dist/**"],
   "scripts": {
     "test": "mocha",
-    "build": "gulp"
+    "prepare": "gulp build"
   },
   "repository": {
     "type": "git",
@@ -13,7 +14,9 @@
   },
   "keywords": [
     "enum",
-    "set"
+    "set",
+    "immutable",
+    "failfast"
   ],
   "author": "Frédéric Guérin <frederickjeanguerin@gmail.com>",
   "license": "MIT",
