@@ -62,25 +62,3 @@ if (typeof module === 'object' && module.exports)
 {
     module.exports = StringEnum;
 }
-
-// Some easy tests
-if (typeof require !== 'undefined' && require.main === module)
-{
-    const e = StringEnum(1, -2);
-    console.log(
-        e[1] === 1,
-        e[-2] === -2,
-        // {...e},
-        Object.keys(e),
-        Object.values(e),
-        Object.entries(e),
-        Object.prototype.hasOwnProperty.call(e, "1"),
-        Object.prototype.hasOwnProperty.call(e, "2") === false
-    );
-    console.log(
-        e.constructor === StringEnum,
-        "1" in e,
-        [...e]
-    );
-
-}
