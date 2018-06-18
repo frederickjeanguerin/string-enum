@@ -43,6 +43,9 @@ delete eyeColors.brown;         // Error, cant delete color
 
 ```html
 <script src="string-enum.js"></script>
+<!-- or -->
+<script src="string-enum-min.js"></script>
+
 <script>
     const eyeColors = StringEnum (
         "brown",
@@ -119,6 +122,18 @@ Object.values(eyeColors)            // ['browns', etc.]
 [...eyeColors]                      // ['browns', etc.]
 
 {...eyeColors}                      // { brown:'brown', etc. }
+```
+
+## ES6 module versions
+
+The package also exists in ES6 module versions to be used on the web or with Node. Note that the `-module` versions may be used on a server that cant properly serve `.mjs` extension as a JavaScript MIME type.
+
+```sh
+string-enum.mjs
+string-enum-min.mjs
+
+string-enum-module.js
+string-enum-module-min.js
 ```
 
 ## License
