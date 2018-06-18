@@ -6,7 +6,7 @@
 function StringEnum(...values) {
 
     // If values is a single array, then use its own values
-    if(values.length === 1 && values[0].constructor === Array)
+    if(values.length === 1 && values[0] != undefined && values[0].constructor === Array)
     {
         values = values[0];
     }
@@ -42,7 +42,7 @@ function StringEnum(...values) {
             if(key in target)
                 throw new TypeError(`Cant modify enum property: ${key}`);
             else
-                throw new TypeError(`Cant define new enum property: ${key}`)                ;
+                throw new TypeError(`Cant define new enum property: ${key}`);
         },
         deleteProperty (target, key) {
             void target; // arg not used
@@ -56,9 +56,3 @@ function StringEnum(...values) {
 StringEnum.prototype[Symbol.iterator] = function*() {
     for(const e in this) yield this[e];
 };
-
-// Export only in Node
-if (typeof module === 'object' && module.exports)
-{
-    module.exports = StringEnum;
-}

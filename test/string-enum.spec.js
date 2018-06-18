@@ -71,6 +71,8 @@ describe('String Enum', function() {
 
     it('Enum of non string elements raise errors', function() {
         expect(()=>StringEnum(1, -2)).throw(TypeError);
+        expect(()=>StringEnum(undefined, undefined)).throw(TypeError);
+        expect(()=>StringEnum(null, null)).throw(TypeError);
     });
 
     it('Enum inheritance', function() {

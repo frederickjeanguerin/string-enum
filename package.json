@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "Creates simple and immutable sets of names.",
   "main": "dist/string-enum.js",
-  "files": ["dist/**"],
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
     "test": "mocha",
-    "prepare": "gulp build"
+    "prepare": "gulp"
   },
   "repository": {
     "type": "git",
@@ -25,9 +27,14 @@
   },
   "homepage": "https://github.com/frederickjeanguerin/string-enum#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-minify": "^0.4.3",
     "chai": "^4.1.2",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
     "mocha": "^5.2.0"
   }
 }

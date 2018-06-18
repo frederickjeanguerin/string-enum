@@ -1,6 +1,5 @@
-const assert = require('assert');
-const StringEnum = require('../dist/string-enum-babel');  // npm link && npm link string-enum
-// const StringEnum = require('../dist/string-enum');
+import assert from 'assert';
+import StringEnum from 'string-enum';
 
 const values = ['brown', 'blue', 'green', 'hazel'];
 const eyeColors = StringEnum(values);
