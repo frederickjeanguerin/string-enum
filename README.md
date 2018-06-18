@@ -42,9 +42,13 @@ delete eyeColors.brown;         // Error, cant delete color
 ## Usage (browser)
 
 ```html
-<script src="string-enum.js"></script>
+<script src="path/to/string-enum.js"></script>
 <!-- or -->
-<script src="string-enum-min.js"></script>
+<script src="path/to/string-enum-min.js"></script>
+<!-- or -->
+<script src="https://unpkg.com/string-enum"></script>
+<!-- or -->
+<script src="https://unpkg.com/string-enum@1.0.0/dist/string-enum-min.js"></script>
 
 <script>
     const eyeColors = StringEnum (
