@@ -45,6 +45,8 @@ describe('String Enum', function() {
             // ... spread working but eslint unhappy with new syntax
             // expect({...enums[0]}).eql({...enums[1]}).eql({...enums[2]});
 
+            expect(e[Symbol.iterator]).not.undefined;
+
             // Enums key are object iterable
             let keys = [];
             for(const key in e){

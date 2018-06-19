@@ -2,6 +2,7 @@
 
 <!-- [![Version](http://img.shields.io/npm/v/es6-enum.svg)](https://www.npmjs.org/package/es6-enum) -->
 [![Build Status](https://travis-ci.org/frederickjeanguerin/string-enum.svg)](https://travis-ci.org/frederickjeanguerin/string-enum)
+[![Coverage Status](https://coveralls.io/repos/github/frederickjeanguerin/string-enum/badge.svg?branch=master)](https://coveralls.io/github/frederickjeanguerin/string-enum?branch=master)
 
 Creates simple and immutables sets of names (*strings*).
 

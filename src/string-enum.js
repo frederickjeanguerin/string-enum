@@ -38,8 +38,7 @@ function StringEnum(...values) {
         get (target, key) {
             if(key in target)
                 return target[key];
-            else if (typeof key !== 'symbol')
-                throw new ReferenceError(`Undefined enum property: ${key}`);
+            else throw new ReferenceError(`Undefined enum property: ${key}`);
         },
         set (target, key, value) {
             void value; // arg not used

@@ -57,5 +57,5 @@ task('rename-min-to-mjs', ['build-module'], function() {
 });
 
 task('clean', function() {
-    return del(['dist/**']);
+    return del(['dist', 'coverage', '.nyc_output']);
 });
