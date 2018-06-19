@@ -60,11 +60,16 @@ delete eyeColors.brown;         // Error, cant delete color
 </script>
 ```
 
+### Downloads
+
+* [string-enum.js](https://unpkg.com/string-enum)
+* [string-enum-min.js](https://unpkg.com/string-enum@1.0.0/dist/string-enum-min.js)
+
 ## More usage
 
 ### Construction
 
-To create a new set of enum values, all the followings are equivalent:
+To create a new set of enum values, all the followings are equivalent :
 
 ```javascript
 const eyeColors = StringEnum("brown", "blue", "green", "hazel");
@@ -74,19 +79,31 @@ const eyeColors = StringEnum( ["brown", "blue", "green", "hazel"] );
 const eyeColors = new StringEnum("brown", "blue", "green", "hazel");
 ```
 
-Note that enum elements should be strings:
+Note that enum elements should be strings :
 
 ```javascript
 const numbers = StringEnum(1, 2, 3);        // TypeError
 ```
 
-Identifier incompatible strings are allowed, but then you must use bracket notation to access them in your code later on:
+Identifier incompatible strings are allowed, but then you must use bracket notation to access them in your code later on :
 
 ```javascript
 const otherColors = StringEnum('light-blue', 'lime-green');
 
 otherColors['light-blue']                   // OK
 otherColors.light-blue                      // Not working
+```
+
+Enum elements cant be repeated :
+
+```javascript
+const colors = StringEnum('red', 'blue', 'red');            // Error
+```
+
+Enum elements cant be [special reserved names](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype) common to every JavaScript object :
+
+```javascript
+const colors = StringEnum('__proto__', 'constructor');      // Error
 ```
 
 ### Equality
@@ -132,13 +149,14 @@ Object.values(eyeColors)            // ['browns', etc.]
 
 The package also exists in ES6 module versions to be used on the web or with Node. Note that the `-module` versions may be used on a server that cant properly serve `.mjs` extension as a JavaScript MIME type.
 
-```sh
-string-enum.mjs
-string-enum-min.mjs
+* [string-enum.mjs](https://unpkg.com/string-enum@1.0.0/dist/string-enum.mjs)
+* [string-enum-min.mjs](https://unpkg.com/string-enum@1.0.0/dist/string-enum-min.mjs)
+* [string-enum-module.js](https://unpkg.com/string-enum@1.0.0/dist/string-enum-module.js)
+* [string-enum-module-min.js](https://unpkg.com/string-enum@1.0.0/dist/string-enum-module-min.js)
 
-string-enum-module.js
-string-enum-module-min.js
-```
+## Comparison with other Enum packages
+
+There are many other [enum packages](https://www.npmjs.com/search?q=enum) available on **npm**. Most of them are useful for their particular use cases but none of them provides precisely what `StringEnum` means to do. `StringEnum` has been developed as part of another project that needed just what it does. The motivation was to furnish an immutable set of predefined names that catches most errors and (stupid) mistakes. It is a very simple code and very simple to use.  
 
 ## License
 

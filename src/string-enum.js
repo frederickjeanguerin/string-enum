@@ -20,9 +20,13 @@ function StringEnum(...values) {
         // Only strings are allowed as values because.
         // 1- object member access convert all values to string, anyways.
         // 2- The StringEnum interface remains extensible to other types in the future.
+        // NB: Values with spaces or non identifier compatible characters are still possible though less usable.
         if( typeof value !== "string" )
             throw new TypeError("Enum elements should be strings: " + value);
-        // NB: Values with spaces or non identifier compatible characters are still possible though less usable.
+        if(_enum.hasOwnProperty(value))
+            throw new Error("Enum element already defined: " + value);
+        if(_enum[value])
+            throw new Error("Cant override special object property: " + value);
         _enum[value] = value;
     }
 

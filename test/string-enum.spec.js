@@ -81,4 +81,26 @@ describe('String Enum', function() {
         }
     });
 
+    it('Enum elements defined more than once raise errors', function() {
+        expect(()=>StringEnum('a', 'b', 'c', 'a')).throw(Error, 'already defined');
+    });
+
+    it('Enum elements overriding internal object properties raise errors', function() {
+        for(const specialProp of ['constructor', '__proto__', 'hasOwnProperty' ])
+        {
+            expect(()=>StringEnum('a', specialProp )).throw(Error, 'special', specialProp);
+        }
+    });
+
+    it('Special methods are still available', function() {
+        for(const e of enums)
+        {
+            expect(e.constructor).eq(StringEnum);
+            expect(e.__proto__).eq(StringEnum.prototype);
+            expect(e.hasOwnProperty('aa')).true;
+            expect(e.hasOwnProperty).eq(Object.prototype.hasOwnProperty);
+        }
+    });
+
+
 });
