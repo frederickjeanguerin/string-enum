@@ -98,13 +98,21 @@ otherColors.light-blue                      // Not working
 Enum elements cant be repeated :
 
 ```javascript
-const colors = StringEnum('red', 'blue', 'red');            // Error
+const colors = StringEnum('red', 'blue', 'red');    // Error
 ```
 
-Enum elements cant be [special reserved names](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype) common to every JavaScript object :
+Enum elements cant start with a double undercore :
 
 ```javascript
-const colors = StringEnum('__proto__', 'constructor');      // Error
+const colors = StringEnum('__a', '__b');            // Error
+```
+
+That's because the double undercore is used to access special properties (*see below*).
+
+All other names are available, including special names :
+
+```javascript
+const specials = StringEnum('constructor', 'toString', 'valueOf');     // Just fine
 ```
 
 ### Equality
@@ -133,6 +141,19 @@ To check beforehand if an element is part of the Enum set, you may use the `in` 
 'blue' in eyeColors;                // true
 'red' in eyeColors;                 // false
 ```
+
+### Special object properties
+
+StringEnum are objects and as such do own special objects properties, like most other JS objects.
+However, to access them you need to precede them with a double underscore.
+
+```js
+eyeColors.__proto__             // prototype
+eyeColors.__constructor         // constructor
+eyeColors.__toString            // string conversion
+```
+
+*Note that because the `toString` and `valueOf` methods are masked, automatic object conversion will not happen.*
 
 ### Other stuff
 

@@ -26,11 +26,13 @@ describe('String Enum', function() {
     it('Enum elements cant be modified, deleted or created', function() {
         for(const e of enums) {
             // Modification
-            expect( () => (e.aa = "") ).throw(TypeError);
+            expect( () => (e.aa = "") ).throw(TypeError, 'modify');
             // Deletion
-            expect( () => (delete e.aa) ).throw(TypeError);
+            expect( () => (delete e.aa) ).throw(TypeError, 'delete');
             // Creation
-            expect( ()=>e.new_elem = "" ).throw(TypeError);
+            expect( ()=>e.new_elem = "" ).throw(TypeError, 'define');
+            // Via Object
+            expect( () => (Object.defineProperty(e, 'aa', Object.getOwnPropertyDescriptor(e, 'aa'))) ).throw(TypeError, 'modify');
         }
     });
 
@@ -54,9 +56,6 @@ describe('String Enum', function() {
             }
             expect(keys).eql(values);
             expect(Object.keys(e)).eql(keys);
-            for(const k of keys) {
-                expect(k in e).true;
-            }
 
             // Enums key are array iterable
             let vals = [];
@@ -77,9 +76,11 @@ describe('String Enum', function() {
         expect(()=>StringEnum(null, null)).throw(TypeError);
     });
 
-    it('Enum inheritance', function() {
+    it('Enum object are StringEnum', function() {
         for(const e of enums){
             expect(e).instanceof(StringEnum);
+            expect(e.__proto__).eq(StringEnum.prototype);
+            expect(e.__proto__.constructor).eq(StringEnum);
         }
     });
 
@@ -87,20 +88,39 @@ describe('String Enum', function() {
         expect(()=>StringEnum('a', 'b', 'c', 'a')).throw(Error, 'already defined');
     });
 
-    it('Enum elements overriding internal object properties raise errors', function() {
-        for(const specialProp of ['constructor', '__proto__', 'hasOwnProperty' ])
-        {
-            expect(()=>StringEnum('a', specialProp )).throw(Error, 'special', specialProp);
+    it('Escaped enum elements cant be defined', function() {
+        expect(()=>StringEnum('a', 'b', '__c')).throw(Error, '__');
+    });
+
+    it('Enum elements overriding internal object properties are just fine', function() {
+        const specialNames = ['constructor', 'hasOwnProperty'];
+        const specials = StringEnum(specialNames);
+        for(const name of specialNames){
+            expect(specials[name]).eq(name);
+            expect(name in specials).true;
         }
     });
 
-    it('Special methods are still available', function() {
+    it('Special methods are still available, if escaped', function() {
         for(const e of enums)
         {
-            expect(e.constructor).eq(StringEnum);
+            expect(e.__constructor).eq(StringEnum);
             expect(e.__proto__).eq(StringEnum.prototype);
-            expect(e.hasOwnProperty('aa')).true;
-            expect(e.hasOwnProperty).eq(Object.prototype.hasOwnProperty);
+            expect(e.__hasOwnProperty('aa')).true;
+            expect(e.__hasOwnProperty).eq(Object.prototype.hasOwnProperty);
+        }
+    });
+
+    it('in operator', function() {
+        for(const e of enums)
+        {
+            for(const v of values) {
+                expect(v in e).true;
+            }
+            expect('not there' in e).false;
+            expect('constructor' in e).false;
+            expect('hasOwnProperty' in e).false;
+            expect('__proto__' in e).false;
         }
     });
 
