@@ -1,6 +1,6 @@
 {
   "name": "string-enum",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Creates simple and immutable sets of names.",
   "main": "dist/string-enum.js",
   "files": [
