@@ -88,10 +88,6 @@ describe('String Enum', function() {
         expect(()=>StringEnum('a', 'b', 'c', 'a')).throw(Error, 'already defined');
     });
 
-    it('Escaped enum elements cant be defined', function() {
-        expect(()=>StringEnum('a', 'b', '__c')).throw(Error, '__');
-    });
-
     it('Enum elements overriding internal object properties are just fine', function() {
         const specialNames = ['constructor', 'hasOwnProperty'];
         const specials = StringEnum(specialNames);
@@ -101,13 +97,16 @@ describe('String Enum', function() {
         }
     });
 
-    it('Special methods are still available, if escaped', function() {
+    it('Special methods are still available, if not overridden', function() {
         for(const e of enums)
         {
-            expect(e.__constructor).eq(StringEnum);
+            expect(e.constructor).eq(StringEnum);
             expect(e.__proto__).eq(StringEnum.prototype);
-            expect(e.__hasOwnProperty('aa')).true;
-            expect(e.__hasOwnProperty).eq(Object.prototype.hasOwnProperty);
+            expect(e.hasOwnProperty('aa')).true;
+
+            // Automatic conversion
+            expect(e + "").eq({}+"");
+            expect(+e).NaN;
         }
     });
 

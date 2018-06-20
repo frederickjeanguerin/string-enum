@@ -14,8 +14,7 @@ function StringEnum(...values) {
     // If called with new, use 'this' as container, otherwise create a new object
     const _enum = new.target ? this : Object.create(StringEnum.prototype);
 
-    const ESCAPE = '__';
-
+    // Tell if an element name is part of the set
     function own(_enum, elem) {
         return Object.getOwnPropertyDescriptor(_enum, elem);
     }
@@ -31,8 +30,6 @@ function StringEnum(...values) {
             throw new TypeError("Enum elements should be strings: " + value);
         if(own(_enum, value))
             throw new Error("Enum element already defined: " + value);
-        if(value.startsWith(ESCAPE))
-            throw new Error("Cannot define elements starting with '" + ESCAPE + "' like: " + value);
         _enum[value] = undefined;
     }
 
@@ -48,8 +45,12 @@ function StringEnum(...values) {
                 return target[key];
             if(key === "__proto__")
                 return target.__proto__;
-            if(key.startsWith(ESCAPE))
-                return target.__proto__[key.slice(ESCAPE.length)];
+            // a backdoor to get access to the proxied object => undocumented.
+            /* istanbul ignore if */
+            if(key === "__proxied__")
+                return target;
+            if(key in target.__proto__)
+                return target.__proto__[key];
             throw new ReferenceError(`Undefined enum property: ${key}`);
         },
         set (target, key, value) {

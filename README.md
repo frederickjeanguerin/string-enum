@@ -80,13 +80,13 @@ const eyeColors = StringEnum( ["brown", "blue", "green", "hazel"] );
 const eyeColors = new StringEnum("brown", "blue", "green", "hazel");
 ```
 
-Note that enum elements should be strings :
+Enum elements should be strings :
 
 ```javascript
 const numbers = StringEnum(1, 2, 3);        // TypeError
 ```
 
-Identifier incompatible strings are allowed, but then you must use bracket notation to access them in your code later on :
+Strings that dont qualify as valid JS identifiers are allowed, but then you must use bracket notation to access them in your code later on :
 
 ```javascript
 const otherColors = StringEnum('light-blue', 'lime-green');
@@ -99,20 +99,6 @@ Enum elements cant be repeated :
 
 ```javascript
 const colors = StringEnum('red', 'blue', 'red');    // Error
-```
-
-Enum elements cant start with a double undercore :
-
-```javascript
-const colors = StringEnum('__a', '__b');            // Error
-```
-
-That's because the double undercore is used to access special properties (*see below*).
-
-All other names are available, including special names :
-
-```javascript
-const specials = StringEnum('constructor', 'toString', 'valueOf');     // Just fine
 ```
 
 ### Equality
@@ -144,16 +130,21 @@ To check beforehand if an element is part of the Enum set, you may use the `in` 
 
 ### Special object properties
 
-StringEnum are objects and as such do own special objects properties, like most other JS objects.
-However, to access them you need to precede them with a double underscore.
+`StringEnum` are objects and as such do own special objects properties, e.g. `__proto__` and `constructor`, just like most other JS objects. However, `StringEnum` permits you to override these objects, because most of the time the user don't care about them. However, if they are not overridden, they behave normally. Note that the `in` operator has been modified to respond only to the enum elements.
 
 ```js
 eyeColors.__proto__             // prototype
-eyeColors.__constructor         // constructor
-eyeColors.__toString            // string conversion
-```
+eyeColors.constructor           // constructor
+eyeColors.toString()            // string conversion
+'constructor' in eyeColors      // false
 
-*Note that because the `toString` and `valueOf` methods are masked, automatic object conversion will not happen.*
+const specials = StringEnum('constructor', 'toString');
+specials.constructor            // "constructor"
+specials.toString               // "toString"
+specials.valueOf()              // value conversion
+'constructor' in specials       // true
+'valueOf' in specials           // false
+```
 
 ### Other stuff
 
