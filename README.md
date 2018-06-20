@@ -1,8 +1,10 @@
 # string-enum
 
-<!-- [![Version](http://img.shields.io/npm/v/es6-enum.svg)](https://www.npmjs.org/package/es6-enum) -->
 [![Build Status](https://travis-ci.org/frederickjeanguerin/string-enum.svg)](https://travis-ci.org/frederickjeanguerin/string-enum)
 [![Coverage Status](https://coveralls.io/repos/github/frederickjeanguerin/string-enum/badge.svg?branch=master)](https://coveralls.io/github/frederickjeanguerin/string-enum?branch=master)
+[![npm version](https://badge.fury.io/js/string-enum.svg)](https://badge.fury.io/js/string-enum)
+![Supported Platform](https://img.shields.io/badge/run%20in-node%20%7C%20web-blue.svg)
+![js version](https://img.shields.io/badge/js-ES6%2B-blue.svg)
 
 Creates simple and immutables sets of names (*strings*).
 
