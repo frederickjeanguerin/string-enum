@@ -79,3 +79,5 @@ function StringEnum(...values) {
 StringEnum.prototype[Symbol.iterator] = function*() {
     for(const e in this) yield this[e];
 };
+
+StringEnum.prototype[Symbol.toStringTag] = StringEnum.name;

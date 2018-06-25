@@ -105,7 +105,6 @@ describe('String Enum', function() {
             expect(e.hasOwnProperty('aa')).true;
 
             // Automatic conversion
-            expect(e + "").eq({}+"");
             expect(+e).NaN;
         }
     });
